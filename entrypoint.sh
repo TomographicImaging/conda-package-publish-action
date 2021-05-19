@@ -18,10 +18,10 @@ check_if_meta_yaml_file_exists() {
 
 build_package(){
     eval conda build "-c "${INPUT_CHANNELS} --output-folder . .
-    if [ $INPUT_CONVERT_OSX = true ]; then
+    if [ ${INPUT_CONVERT_OSX} = true ]; then
         conda convert -p osx-64 linux-64/*.tar.bz2
     fi
-    if [ $INPUT_CONVERT_WIN = true ]; then
+    if [ ${INPUT_CONVERT_WIN} = true ]; then
         conda convert -p win-64 linux-64/*.tar.bz2
     fi
 }
@@ -29,10 +29,10 @@ build_package(){
 upload_package(){
     export ANACONDA_API_TOKEN=$INPUT_ANACONDATOKEN
     anaconda upload --label main linux-64/*.tar.bz2
-    if [ $INPUT_CONVERT_OSX = true ]; then
+    if [ ${INPUT_CONVERT_OSX} = true ]; then
         anaconda upload --label main osx-64/*.tar.bz2
     fi
-    if [ $INPUT_CONVERT_WIN = true ]; then
+    if [ ${INPUT_CONVERT_WIN} = true ]; then
         anaconda upload --label main win-64/*.tar.bz2
     fi
 }
