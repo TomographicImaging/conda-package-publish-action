@@ -37,8 +37,8 @@ build_and_test_package(){
 }
 
 test_package(){
-
-    eval conda build "-c "${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} . --test
+    # builds and tests one package
+    eval conda build "-c "${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} .
 
 }
 
