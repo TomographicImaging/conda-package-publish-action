@@ -39,13 +39,6 @@ build_and_test_package(){
 test_package(){
     # builds and tests one package
     eval conda build "-c "${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
-    if [ ${INPUT_CONVERT_OSX} = true ]; then
-        conda convert -p osx-64 linux-64/*.tar.bz2
-    fi
-    if [ ${INPUT_CONVERT_WIN} = true ]; then
-        conda convert -p win-64 linux-64/*.tar.bz2
-    fi
-
 }
 
 upload_package(){
