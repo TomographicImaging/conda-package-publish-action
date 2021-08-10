@@ -2,6 +2,16 @@
 
 A Github Action to build and *optionally* publish your software package to an Anaconda repository.
 
+### Default behaviour
+
+All of the input variables and defaults can be found in [action.yml](https://github.com/paskino/conda-package-publish-action/blob/update-readme/action.yml)
+
+The default settings result in the default behaviour being that the package is built and tested for linux with `numpy=1.18` and `python=3.7`, but not published.
+
+If `publish` is set to `True`, then this single variant is published.
+
+For all variants to be built, tested, and (if `publish` is True) published, `test_all` must be set to `True`.
+
 ### Example workflow
 This workflow has the following behaviour:
 
