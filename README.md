@@ -1,26 +1,54 @@
 # Publish Anaconda Package
 
-A Github Action to publish your software package to an Anaconda repository.
+A Github Action to build and *optionally* publish your software package to an Anaconda repository.
 
-### Example workflow to publish to conda every time you make a new release
+### Default behaviour
+
+All of the input variables and defaults can be found in [action.yml](https://github.com/paskino/conda-package-publish-action/blob/update-readme/action.yml)
+
+The default settings result in the default behaviour being that the package is built and tested for linux with `numpy=1.18` and `python=3.7`, but not published.
+
+If `publish` is set to `True`, then this single variant is published.
+
+For all variants to be built, tested, and (if `publish` is True) published, `test_all` must be set to `True`.
+
+### Example workflow
+This workflow has the following behaviour:
+
+When pushing to master *all* variants are built and tested.
+
+- If pushing to master, all variants are built and tested.
+- If an [annotated](https://git-scm.com/book/en/v2/Git-Basics-Tagging) tag is created, all variants are built, tested and published.
+- If opening or modifying a pull request to master, a single variant is built and tested, but not published.
+- Builds using channels: conda-forge, ccpi, and paskino.
+- Builds for linux and conda converts to windows and macOS as well, in the case that all variants are being built.
 
 ```yaml
-name: publish_conda
+name: conda_build
 
 on:
   release:
     types: [published]
+  push:
+    branches: [ master ]
+    tags:
+      - '**'
+  pull_request:
+    branches: [ master ]
     
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: publish-to-conda
-      uses: maxibor/conda-package-publish-action@v1.1
+      uses: paskino/conda-package-publish-action@master
       with:
         subDir: 'conda'
+        channels: 'conda-forge -c ccpi -c paskino'
         AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}
+        publish: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
+        test_all: ${{(github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')) || (github.ref == 'refs/heads/master')}}
 ```
 
 ### Example project structure
