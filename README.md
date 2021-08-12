@@ -21,7 +21,7 @@ When pushing to master *all* variants are built and tested.
 - If an [annotated](https://git-scm.com/book/en/v2/Git-Basics-Tagging) tag is created, all variants are built, tested and published.
 - If opening or modifying a pull request to master, a single variant is built and tested, but not published.
 - Builds using channels: conda-forge, ccpi, and paskino.
-- Builds for linux and conda converts to windows and macOS as well, in the case that all variants are being built.
+- Builds for linux and conda converts to windows and macOS as well.
 
 ```yaml
 name: conda_build
@@ -49,6 +49,8 @@ jobs:
         AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}
         publish: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
         test_all: ${{(github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')) || (github.ref == 'refs/heads/master')}}
+        convert_win: true
+        convert_osx: true
 ```
 
 ### Example project structure
