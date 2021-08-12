@@ -18,10 +18,10 @@ inputs:
     default: 'false'
   convert_win:
     description: 'Whether to convert linux build for windows'
-    default: 'true'
+    default: 'false'
   convert_osx:
     description: 'Whether to convert linux build for osx'
-    default: 'true'
+    default: 'false'
   test_all:
     description: 'Whether to build and test all recipe variants'
     default: 'false'
