@@ -36,7 +36,7 @@ upload_package(){
     # upload package if INPUT_PUBLISH is set to true
     if [ ${INPUT_PUBLISH} = true ]; then
         export ANACONDA_API_TOKEN=$INPUT_ANACONDATOKEN
-        anaconda upload --label main linux-64/*.tar.bz2
+        anaconda upload --label main noarch/*.tar.bz2 || anaconda upload --label main linux-64/*.tar.bz2
         if [ ${INPUT_CONVERT_OSX} = true ]; then
             if [ ${INPUT_TEST_ALL} = false ]; then
                 conda convert -p osx-64 linux-64/*.tar.bz2
