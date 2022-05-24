@@ -3,7 +3,7 @@
 set -ex
 set -o pipefail
 
-setup_docker(){
+install_apt_packages(){
     if [ ! -z "${INPUT_ADDITIONAL_APT_PACKAGES}" ]; then
         apt-get install -y  ${INPUT_ADDITIONAL_APT_PACKAGES}
     fi
@@ -58,7 +58,7 @@ upload_package(){
     fi
 }
 
-setup_docker
+install_apt_packages
 go_to_build_dir
 check_if_meta_yaml_file_exists
 build_and_test_package
