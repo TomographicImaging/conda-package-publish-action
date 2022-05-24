@@ -4,7 +4,7 @@ set -ex
 set -o pipefail
 
 setup_docker(){
-    if [ ! -z $INPUT_ADDITIONAL_APT_PACKAGES ]
+    if [ ! -z $INPUT_ADDITIONAL_APT_PACKAGES ]; then
     apt-get install -y  ${INPUT_ADDITIONAL_APT_PACKAGES}
 }
 
