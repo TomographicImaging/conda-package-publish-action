@@ -12,7 +12,7 @@ inputs:
     description: 'Anaconda access Token'
   channels:
     description: 'Additional anaconda channels'
-    default: '{conda-forge}'
+    default: '{ -c conda-forge}'
   publish:
     description: 'Whether to publish to anaconda'
     default: 'false'
@@ -31,6 +31,9 @@ inputs:
   test_npver:
     description: 'Default version of NumPy to test the package with'
     default: '1.18'
+  additional_apt_packages:
+    description: 'Additional packages to install in the Docker image'
+    default: ''
   
 runs:
   using: 'docker'

@@ -3,6 +3,11 @@
 set -ex
 set -o pipefail
 
+setup_docker(){
+    if [ ! -z $INPUT_ADDITIONAL_APT_PACKAGES ]
+    apt-get install -y  ${INPUT_ADDITIONAL_APT_PACKAGES}
+}
+
 go_to_build_dir() {
     if [ ! -z $INPUT_SUBDIR ]; then
         cd $INPUT_SUBDIR
@@ -18,7 +23,7 @@ check_if_meta_yaml_file_exists() {
 
 build_and_test_package(){
     if  [ ${INPUT_TEST_ALL} = true ]; then
-        eval conda build "-c "${INPUT_CHANNELS} --output-folder . .
+        eval conda build ${INPUT_CHANNELS} --output-folder . .
     else
         # builds and tests one package, with the specified combination of python and numpy
         eval conda build "-c "${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
@@ -52,6 +57,7 @@ upload_package(){
     fi
 }
 
+setup_docker
 go_to_build_dir
 check_if_meta_yaml_file_exists
 build_and_test_package
