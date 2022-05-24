@@ -27,7 +27,7 @@ build_and_test_package(){
         eval conda build ${INPUT_CHANNELS} --output-folder . .
     else
         # builds and tests one package, with the specified combination of python and numpy
-        eval conda build "-c "${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
+        eval conda build ${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
     fi
 
     if [ ${INPUT_CONVERT_OSX} = true ]; then
