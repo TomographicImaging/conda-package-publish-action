@@ -3,6 +3,12 @@
 set -ex
 set -o pipefail
 
+install_apt_packages(){
+    if [ ! -z "${INPUT_ADDITIONAL_APT_PACKAGES}" ]; then
+        apt-get install -y  ${INPUT_ADDITIONAL_APT_PACKAGES}
+    fi
+}
+
 go_to_build_dir() {
     if [ ! -z $INPUT_SUBDIR ]; then
         cd $INPUT_SUBDIR
@@ -18,10 +24,10 @@ check_if_meta_yaml_file_exists() {
 
 build_and_test_package(){
     if  [ ${INPUT_TEST_ALL} = true ]; then
-        eval conda build "-c "${INPUT_CHANNELS} --output-folder . .
+        eval conda build ${INPUT_CHANNELS} --output-folder . .
     else
         # builds and tests one package, with the specified combination of python and numpy
-        eval conda build "-c "${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
+        eval conda build ${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
     fi
 
     if [ ${INPUT_CONVERT_OSX} = true ]; then
@@ -52,6 +58,7 @@ upload_package(){
     fi
 }
 
+install_apt_packages
 go_to_build_dir
 check_if_meta_yaml_file_exists
 build_and_test_package
