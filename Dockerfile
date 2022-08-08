@@ -4,7 +4,7 @@ LABEL "repository"="https://github.com/m0nhawk/conda-package-publish-action"
 LABEL "maintainer"="Andrew Prokhorenkov <andrew.prokhorenkov@gmail.com>"
 
 RUN conda install -y anaconda-client conda-build
-RUN conda install -y anaconda-client mamba
+RUN conda install -y mamba -c conda-forge
 RUN apt-get --allow-releaseinfo-change update
 RUN apt-get install -y build-essential --fix-missing
 
