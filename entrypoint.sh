@@ -24,10 +24,10 @@ check_if_meta_yaml_file_exists() {
 
 build_and_test_package(){
     if  [ ${INPUT_TEST_ALL} = true ]; then
-        eval conda build ${INPUT_CHANNELS} --output-folder . .
+        eval conda mambabuild . ${INPUT_CHANNELS} --output-folder .
     else
         # builds and tests one package, with the specified combination of python and numpy
-        eval conda build ${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder . .
+        eval conda mambabuild . ${INPUT_CHANNELS} "--python="${INPUT_TEST_PYVER} "--numpy="${INPUT_TEST_NPVER} --output-folder .
     fi
 
     if [ ${INPUT_CONVERT_OSX} = true ]; then
