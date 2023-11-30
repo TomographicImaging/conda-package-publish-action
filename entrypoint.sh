@@ -58,6 +58,7 @@ upload_package(){
     fi
 }
 
+git config --global --add safe.directory /github/workspace
 install_apt_packages
 go_to_build_dir
 check_if_meta_yaml_file_exists
