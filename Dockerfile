@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:latest
+FROM continuumio/miniconda3:25.1.1-2
 
 LABEL "repository"="https://github.com/m0nhawk/conda-package-publish-action"
 LABEL "maintainer"="Andrew Prokhorenkov <andrew.prokhorenkov@gmail.com>"
