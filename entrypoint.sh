@@ -31,10 +31,10 @@ build_and_test_package(){
     fi
 
     if [ ${INPUT_CONVERT_OSX} = true ]; then
-        conda convert -p osx-64 linux-64/*.tar.bz2
+        conda convert -p osx-64 linux-64/*
     fi
     if [ ${INPUT_CONVERT_WIN} = true ]; then
-        conda convert -p win-64 linux-64/*.tar.bz2
+        conda convert -p win-64 linux-64/*
     fi
 }
 
@@ -42,18 +42,18 @@ upload_package(){
     # upload package if INPUT_PUBLISH is set to true
     if [ ${INPUT_PUBLISH} = true ]; then
         export ANACONDA_API_TOKEN=$INPUT_ANACONDATOKEN
-        anaconda upload --label main noarch/*.tar.bz2 || anaconda upload --label main linux-64/*.tar.bz2
+        anaconda upload --label main noarch/* || anaconda upload --label main linux-64/*
         if [ ${INPUT_CONVERT_OSX} = true ]; then
             if [ ${INPUT_TEST_ALL} = false ]; then
-                conda convert -p osx-64 linux-64/*.tar.bz2
+                conda convert -p osx-64 linux-64/*
             fi
-            anaconda upload --label main osx-64/*.tar.bz2
+            anaconda upload --label main osx-64/*
         fi
         if [ ${INPUT_CONVERT_WIN} = true ]; then
             if [ ${INPUT_TEST_ALL} = false ]; then
-                conda convert -p win-64 linux-64/*.tar.bz2
+                conda convert -p win-64 linux-64/*
             fi
-            anaconda upload --label main win-64/*.tar.bz2
+            anaconda upload --label main win-64/*
         fi
     fi
 }
